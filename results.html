@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ergebnisse</title>
+</head>
+<body>
+    <h1>Ergebnisse für: {{ survey.title }}</h1>
+    <p>Frage: {{ survey.question }}</p>
+    <h2>Antworten:</h2>
+    <ul>
+        {% for response in responses %}
+        <li>{{ response }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/">Zurück</a>
+</body>
+</html>
