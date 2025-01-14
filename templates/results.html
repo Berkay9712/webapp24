@@ -7,13 +7,16 @@
 </head>
 <body>
     <h1>Ergebnisse für: {{ survey.title }}</h1>
-    <p>Frage: {{ survey.question }}</p>
-    <h2>Antworten:</h2>
-    <ul>
-        {% for response in responses %}
-        <li>{{ response }}</li>
-        {% endfor %}
-    </ul>
-    <a href="/">Zurück</a>
+    {% for question in survey.questions %}
+        <h2>{{ question.text }}</h2>
+        <ul>
+            {% for response in question.responses %}
+                <li>{{ response.answer }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+    <a href="/">Zurück zur Übersicht</a>
 </body>
 </html>
+
+

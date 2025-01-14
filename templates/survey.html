@@ -3,16 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ survey.title }}</title>
+    <title>Umfrage</title>
 </head>
 <body>
-    <h1>{{ survey.title }}</h1>
-    <p>{{ survey.question }}</p>
+    <h1>Umfrage: {{ survey.title }}</h1>
     <form method="POST">
-        <label for="answer">Antwort:</label>
-        <input type="text" id="answer" name="answer" required><br><br>
-        <button type="submit">Abstimmen</button>
+        {% for question in survey.questions %}
+            <p>{{ question.text }}</p>
+            <input type="text" name="question_{{ question.id }}" required><br>
+        {% endfor %}
+        <button type="submit">Absenden</button>
     </form>
-    <a href="/">Zurück</a>
+    <a href="/">Zurück zur Übersicht</a>
 </body>
 </html>
+

@@ -1,19 +1,23 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umfrage erstellen</title>
-</head>
-<body>
-    <h1>Neue Umfrage erstellen</h1>
-    <form method="POST">
-        <label for="title">Titel:</label>
-        <input type="text" id="title" name="title" required><br><br>
-        <label for="question">Frage:</label>
-        <input type="text" id="question" name="question" required><br><br>
-        <button type="submit">Erstellen</button>
-    </form>
-    <a href="/">Zurück</a>
-</body>
-</html>
+<form method="POST" action="/create">
+    <label for="title">Titel der Umfrage</label>
+    <input type="text" name="title" id="title" required placeholder="Titel eingeben">
+
+    <h3>Questions</h3>
+    <div id="questions-container">
+        <input type="text" name="questions[]" required placeholder="Frage eingeben">
+    </div>
+    <button type="button" onclick="addQuestion()">Frage hinzufügen</button>
+    <button type="submit">Umfrage erstellen</button>
+</form>
+
+<script>
+    function addQuestion() {
+        const container = document.getElementById('questions-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.name = 'questions[]';
+        input.required = true;
+        input.placeholder = 'Enter a question';
+        container.appendChild(input);
+    }
+</script>
