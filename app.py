@@ -1,11 +1,14 @@
 from flask import Flask, render_template, request, redirect, url_for
 from models import db, Survey, Question, Response
+from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 
 # SQL Datenbank
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+migrate = Migrate(app, db)
 
 # Datenbank mit Flask-App
 db.init_app(app)

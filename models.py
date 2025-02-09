@@ -13,9 +13,13 @@ class Question(db.Model):
     survey_id = db.Column(db.Integer, db.ForeignKey('survey.id'), nullable=False)
 
 class Response(db.Model):
+    __tablename__ = 'response'
     id = db.Column(db.Integer, primary_key=True)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
-    answer = db.Column(db.String(200), nullable=False)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)  # Frage ID
+    answer = db.Column(db.String, nullable=False)
+
+    question = db.relationship('Question', backref=db.backref('responses', lazy=True))
+
 
 
 
