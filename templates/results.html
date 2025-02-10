@@ -3,40 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ergebnisse | Circumspectis</title>
+    <title>Umfrageergebnisse</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
-    <!-- Header -->
-    <header class="header-bar">
-        <h1 class="site-title">Circumspectis</h1>
-    </header>
-
-    <!-- Ergebnisse -->
-    <main class="container">
-        <h2>Ergebnisse für: {{ survey.title }}</h2>
+    <div class="container">
+        <h1>Ergebnisse der Umfrage: {{ survey.title }}</h1>
         
-        <div class="results-container">
-            {% for question, answers in results.items() %}
-                <div class="question-box">
-                    <h3 class="question-text">{{ question }}</h3>
-                    <ul class="results-list">
-                        {% for answer, count in answers.items() %}
-                            <li>{{ answer }} - <strong>{{ count }}</strong> Stimmen</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endfor %}
-        </div>
+        {% for question in survey.questions %}
+            <div class="question">
+                <h3>{{ question.text }}</h3>
+                <ul>
+                    {% for response in question.responses %}
+                        <li>{{ response.answer }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endfor %}
 
-        <div class="button-container">
-            <a href="/" class="button">Zurück zur Startseite</a>
-        </div>
-    </main>
-
+        <a href="{{ url_for('create') }}">Neue Umfrage erstellen</a>
+    </div>
 </body>
 </html>
+
 
 
 
