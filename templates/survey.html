@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umfrage</title>
+    <title>Umfrage | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Umfrage: {{ survey.title }}</h1>
-    <form method="POST">
-        {% for question in survey.questions %}
-            <p>{{ question.text }}</p>
-            <input type="text" name="question_{{ question.id }}" required><br>
-        {% endfor %}
-        <button type="submit">Absenden</button>
-    </form>
-    <a href="/">Zurück zur Übersicht</a>
+
+    <!-- Header -->
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
+
+    <!-- Umfrage -->
+    <main class="container">
+        <h2>{{ survey.title }}</h2>
+        <form method="POST" action="/survey/{{ survey.id }}">
+            {% for question in survey.questions %}
+                <div class="question-box">
+                    <p class="question-text">{{ question.text }}</p>
+                    <input type="text" name="answers[]" required placeholder="Antwort eingeben">
+                </div>
+            {% endfor %}
+
+            <div class="button-container">
+                <button type="submit" class="button">Antworten absenden</button>
+            </div>
+        </form>
+    </main>
+
 </body>
 </html>
 

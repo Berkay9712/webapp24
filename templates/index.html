@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umfragen</title>
+    <title>Startseite | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Circumspectis</h1>
-    <a href="/create">Neue Umfrage erstellen</a>
-    <h2>Verfügbare Umfragen:</h2>
-    <ul>
-        {% for survey in surveys %}
-        <li><a href="/survey/{{ survey.id }}">{{ survey.title }}</a></li>
-        {% endfor %}
-    </ul>
+
+    <!-- Header -->
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
+
+    <!-- aktuelle Umfragen -->
+    <main class="container">
+        <h2>Verfügbare Umfragen</h2>
+
+        <ul class="survey-list">
+            {% for survey in surveys %}
+                <li>
+                    <a href="/survey/{{ survey.id }}" class="survey-link">{{ survey.title }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="button-container">
+            <a href="/create" class="button">Neue Umfrage erstellen</a>
+        </div>
+    </main>
+
 </body>
 </html>
+

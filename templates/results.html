@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ergebnisse</title>
+    <title>Ergebnisse | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Ergebnisse für: {{ survey.title }}</h1>
-    {% for question in survey.questions %}
-        <h2>{{ question.text }}</h2>
-        <ul>
-            {% for response in question.responses %}
-                <li>{{ response.answer }}</li>
+
+    <!-- Header -->
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
+
+    <!-- Ergebnisse -->
+    <main class="container">
+        <h2>Ergebnisse für: {{ survey.title }}</h2>
+        
+        <div class="results-container">
+            {% for question, answers in results.items() %}
+                <div class="question-box">
+                    <h3 class="question-text">{{ question }}</h3>
+                    <ul class="results-list">
+                        {% for answer, count in answers.items() %}
+                            <li>{{ answer }} - <strong>{{ count }}</strong> Stimmen</li>
+                        {% endfor %}
+                    </ul>
+                </div>
             {% endfor %}
-        </ul>
-    {% endfor %}
-    <a href="/">Zurück zur Übersicht</a>
+        </div>
+
+        <div class="button-container">
+            <a href="/" class="button">Zurück zur Startseite</a>
+        </div>
+    </main>
+
 </body>
 </html>
+
 
 

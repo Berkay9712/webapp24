@@ -1,23 +1,50 @@
-<form method="POST" action="/create">
-    <label for="title">Titel der Umfrage</label>
-    <input type="text" name="title" id="title" required placeholder="Titel eingeben">
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umfrage erstellen | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-    <h3>Questions</h3>
-    <div id="questions-container">
-        <input type="text" name="questions[]" required placeholder="Frage eingeben">
-    </div>
-    <button type="button" onclick="addQuestion()">Frage hinzufügen</button>
-    <button type="submit">Umfrage erstellen</button>
-</form>
+    <!-- Header -->
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
 
-<script>
-    function addQuestion() {
-        const container = document.getElementById('questions-container');
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = 'questions[]';
-        input.required = true;
-        input.placeholder = 'Enter a question';
-        container.appendChild(input);
-    }
-</script>
+    <!-- Umfrage -->
+    <main class="container">
+        <h2>Neue Umfrage erstellen</h2>
+        <form method="POST" action="/create">
+            <label for="title">Titel der Umfrage</label>
+            <input type="text" name="title" id="title" required placeholder="Titel eingeben">
+
+            <h3>Fragen</h3>
+            <div id="questions-container">
+                <input type="text" name="questions[]" required placeholder="Frage eingeben">
+            </div>
+
+            <div class="button-container">
+                <button type="button" class="button" onclick="addQuestion()">Frage hinzufügen</button>
+                <button type="submit" class="button">Umfrage erstellen</button>
+            </div>
+        </form>
+    </main>
+
+    <!-- Javascript Fragen hinufügen -->
+    <script>
+        function addQuestion() {
+            const container = document.getElementById('questions-container');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.name = 'questions[]';
+            input.required = true;
+            input.placeholder = 'Weitere Frage eingeben';
+            container.appendChild(input);
+        }
+    </script>
+
+</body>
+</html>
+
