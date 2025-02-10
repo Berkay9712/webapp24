@@ -48,7 +48,7 @@ def create():
         db.session.commit()
 
         survey_link = url_for('survey', survey_id=new_survey.id, _external=True)
-        return render_template('created.html', survey_link=survey_link)
+        return render_template('created.html', survey_link=survey_link, survey_id=new_survey.id)
 
     return render_template('create.html')
 
