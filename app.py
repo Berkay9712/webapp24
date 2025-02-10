@@ -1,70 +1,70 @@
 from flask import Flask, render_template, request, redirect, url_for
-from models import db, Survey, Question, Response
 from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
 
 app = Flask(__name__)
-
-# SQL Datenbank
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-migrate = Migrate(app, db)
+db = SQLAlchemy(app)
 
-# Datenbank mit Flask-App
-db.init_app(app)
+class Survey(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    questions = db.relationship('Question', backref='survey', lazy=True)
 
-with app.app_context():
-    db.create_all()
-@app.route('/')
-def index():
-    surveys = Survey.query.all()
-    return render_template('index.html', surveys=surveys)
+class Question(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(200), nullable=False)
+    survey_id = db.Column(db.Integer, db.ForeignKey('survey.id'), nullable=False)
+
+class Response(db.Model):
+    __tablename__ = 'response'
+    id = db.Column(db.Integer, primary_key=True)
+    question_id = db.Column(db.Integer, db.ForeignKey('question.id'), nullable=False)
+    answer = db.Column(db.String, nullable=False)
+
+    question = db.relationship('Question', backref=db.backref('responses', lazy=True))
+
+db.create_all()
 
 @app.route('/create', methods=['GET', 'POST'])
 def create():
     if request.method == 'POST':
-        title = request.form.get('title', '').strip()
-        questions = request.form.getlist('questions[]')
+        title = request.form['title']
+        questions_text = request.form.getlist('questions[]')
 
-        # Titel darf nicht leer 
-        if not title:
-            return "Bitte geben Sie einen Titel an", 400
-        
-        # mindestens eine Frage erforderlich
-        valid_questions = [q.strip() for q in questions if q.strip()]
-        if not valid_questions:
-            return "Bitte stellen Sie eine Frage", 400
+        # Neue Umfrage speichern
+        new_survey = Survey(title=title)
+        db.session.add(new_survey)
+        db.session.commit()
 
-        # Umfrage und Fragen erstellen
-        try:
-            new_survey = Survey(title=title)
-            db.session.add(new_survey)
-            db.session.flush()  # damit `new_survey.id` verfügbar ist
+        # Fragen speichern
+        for question_text in questions_text:
+            question = Question(text=question_text, survey_id=new_survey.id)
+            db.session.add(question)
 
-            for question_text in valid_questions:
-                new_question = Question(text=question_text, survey_id=new_survey.id)
-                db.session.add(new_question)
+        db.session.commit()
 
-            db.session.commit()
-            return redirect('/')
-        except Exception as e:
-            db.session.rollback()
-            return f"An error occurred: {e}", 500 # zur Fehlererkennung
+        # Link zur Umfrage generieren
+        survey_link = url_for('survey', survey_id=new_survey.id, _external=True)
+        return render_template('created.html', survey_link=survey_link)
 
     return render_template('create.html')
 
-
 @app.route('/survey/<int:survey_id>', methods=['GET', 'POST'])
-def take_survey(survey_id):
+def survey(survey_id):
     survey = Survey.query.get_or_404(survey_id)
+
     if request.method == 'POST':
-        for question in survey.questions:
-            answer = request.form.get(f'question_{question.id}')
-            if answer:
-                new_response = Response(question_id=question.id, answer=answer)
-                db.session.add(new_response)
+        responses = request.form.getlist('responses[]')
+        questions = survey.questions
+
+        for i, question in enumerate(questions):
+            response = Response(question_id=question.id, answer=responses[i])
+            db.session.add(response)
+
         db.session.commit()
-        return redirect(url_for('results', survey_id=survey_id))
+        return redirect(url_for('results', survey_id=survey.id))
+
     return render_template('survey.html', survey=survey)
 
 @app.route('/results/<int:survey_id>')
