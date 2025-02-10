@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Umfrage erstellen | Circumspectis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        /* Optional: Abstand zwischen Label und Input erhöhen */
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            display: block;
+            margin-bottom: 15px;
+        }
+    </style>
 </head>
 <body>
 
@@ -22,6 +33,7 @@
 
             <h3>Fragen</h3>
             <div id="questions-container">
+                <label>Frage:</label>
                 <input type="text" name="questions[]" required placeholder="Frage eingeben">
             </div>
 
@@ -32,19 +44,18 @@
         </form>
     </main>
 
-    <!-- Javascript Fragen hinufügen -->
+    <!-- Javascript Fragen hinzufügen -->
     <script>
         function addQuestion() {
             const container = document.getElementById('questions-container');
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.name = 'questions[]';
-            input.required = true;
-            input.placeholder = 'Weitere Frage eingeben';
-            container.appendChild(input);
+            const questionWrapper = document.createElement('div');
+            questionWrapper.innerHTML = `
+                <label>Frage:</label>
+                <input type="text" name="questions[]" required placeholder="Weitere Frage eingeben">
+            `;
+            container.appendChild(questionWrapper);
         }
     </script>
 
 </body>
 </html>
-
