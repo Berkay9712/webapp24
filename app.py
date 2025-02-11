@@ -54,13 +54,14 @@ def register():
             flash('Nutzername bereits vergeben!', 'danger')
             return redirect(url_for('register'))
 
-        hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Registrierung erfolgreich! Bitte melde dich an.', 'success')
-        return redirect(url_for('home'))
+        login_user(new_user)  # Direkt einloggen nach Registrierung
+        flash('Registrierung erfolgreich! Du bist jetzt eingeloggt.', 'success')
+        return redirect(url_for('dashboard'))
 
     return render_template('register.html')
 
@@ -77,6 +78,11 @@ def logout():
     logout_user()
     flash('Erfolgreich ausgeloggt!', 'info')
     return redirect(url_for('home'))
+
+# Route für "Umfrage ohne Login" (Fehlender Link in index.html)
+@app.route('/create')
+def create():
+    return "Hier kannst du eine Umfrage ohne Login erstellen."
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
