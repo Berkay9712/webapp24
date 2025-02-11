@@ -19,6 +19,13 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(50), unique=True, nullable=False)
     password = db.Column(db.String(200), nullable=False)
 
+# Umfrage-Modell
+class Survey(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200), nullable=False)
+    questions = db.Column(db.Text, nullable=False)  # Gespeichert als JSON-String
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  # Null, wenn kein User angemeldet
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
@@ -69,7 +76,8 @@ def register():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return render_template('dashboard.html', user=current_user)
+    surveys = Survey.query.filter_by(user_id=current_user.id).all()
+    return render_template('dashboard.html', user=current_user, surveys=surveys)
 
 # Logout
 @app.route('/logout')
@@ -79,10 +87,27 @@ def logout():
     flash('Erfolgreich ausgeloggt!', 'info')
     return redirect(url_for('home'))
 
-# Route für "Umfrage ohne Login" (Fehlender Link in index.html)
-@app.route('/create')
+# Umfrage erstellen
+@app.route('/create', methods=['GET', 'POST'])
 def create():
-    return "Hier kannst du eine Umfrage ohne Login erstellen."
+    if request.method == 'POST':
+        title = request.form['title']
+        questions = request.form.getlist('questions[]')  # Holt alle Fragen als Liste
+
+        # Speichere die Umfrage
+        new_survey = Survey(
+            title=title,
+            questions=";".join(questions),  # Speichert Fragen als Semikolon-separierte Zeichenkette
+            user_id=current_user.id if current_user.is_authenticated else None  # Null für Gäste
+        )
+        db.session.add(new_survey)
+        db.session.commit()
+
+        flash('Umfrage erfolgreich erstellt!', 'success')
+
+        return redirect(url_for('dashboard') if current_user.is_authenticated else url_for('home'))
+
+    return render_template('create.html', user=current_user)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
