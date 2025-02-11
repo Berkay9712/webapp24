@@ -3,33 +3,120 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Startseite | Circumspectis</title>
+    <title>Willkommen | Circumspectis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 50%;
+            margin: 100px auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .login-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .login-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .guest-btn {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .guest-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .register-btn {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .register-btn:hover {
+            background-color: #e0a800;
+        }
+
+        .form-container {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .form-container input {
+            width: 90%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .form-container button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header-bar">
-        <h1 class="site-title">Circumspectis</h1>
-    </header>
+    <div class="container">
+        <h1>Willkommen bei Circumspectis</h1>
+        <p>Erstelle eine Umfrage mit oder ohne Login</p>
 
-    <!-- aktuelle Umfragen -->
-    <main class="container">
-        <h2>Verfügbare Umfragen</h2>
+        <!-- Login-Formular direkt auf der Startseite -->
+        <div class="form-container">
+            <form action="{{ url_for('login') }}" method="POST">
+                <label for="username">Benutzername:</label>
+                <input type="text" id="username" name="username" required>
 
-        <ul class="survey-list">
-            {% for survey in surveys %}
-                <li>
-                    <a href="/survey/{{ survey.id }}" class="survey-link">{{ survey.title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
+                <label for="password">Passwort:</label>
+                <input type="password" id="password" name="password" required>
 
-        <div class="button-container">
-            <a href="/create" class="button">Neue Umfrage erstellen</a>
+                <button type="submit">Einloggen</button>
+            </form>
         </div>
-    </main>
+
+        <!-- Registrierung & Gast-Option -->
+        <a href="{{ url_for('register') }}"><button class="button register-btn">Registrieren</button></a>
+        <a href="{{ url_for('create') }}"><button class="button guest-btn">Umfrage ohne Login</button></a>
+    </div>
 
 </body>
 </html>
+
+
 

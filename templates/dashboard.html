@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="header-bar">
+        <h1>Circumspectis – Dein Dashboard</h1>
+    </header>
+
+    <main class="container">
+        <h2>Hallo, {{ user.username }}!</h2>
+        <h3>Deine Umfragen</h3>
+        {% if surveys %}
+            <ul>
+                {% for survey in surveys %}
+                    <li>
+                        <a href="{{ url_for('results', survey_id=survey.id) }}">{{ survey.title }}</a>
+                        <span> | <a href="{{ url_for('delete_survey', survey_id=survey.id) }}" style="color: red;">Löschen</a></span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Du hast noch keine Umfragen erstellt.</p>
+        {% endif %}
+        <a href="{{ url_for('create') }}"><button class="button">Neue Umfrage erstellen</button></a>
+        <a href="{{ url_for('logout') }}"><button class="button logout-btn">Logout</button></a>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrierung | Circumspectis</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
+
+    <main class="container">
+        <h2>Registrieren</h2>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form method="POST" action="{{ url_for('register') }}">
+            <label for="username">Nutzername</label>
+            <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen">
+
+            <label for="password">Passwort</label>
+            <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein">
+
+            <button type="submit" class="button">Registrieren</button>
+        </form>
+
+        <p>Bereits ein Konto? <a href="{{ url_for('login') }}">Hier einloggen</a></p>
+    </main>
+
+</body>
+</html>
