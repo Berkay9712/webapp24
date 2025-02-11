@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
+import json
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys.db'
@@ -89,25 +90,64 @@ def logout():
 
 # Umfrage erstellen
 @app.route('/create', methods=['GET', 'POST'])
+@login_required
 def create():
     if request.method == 'POST':
         title = request.form['title']
-        questions = request.form.getlist('questions[]')  # Holt alle Fragen als Liste
+        questions = request.form.getlist('questions[]')
 
-        # Speichere die Umfrage
+        # Falls keine Fragen eingegeben wurden, leere Liste speichern
+        questions_json = json.dumps(questions) if questions else "[]"
+
         new_survey = Survey(
             title=title,
-            questions=";".join(questions),  # Speichert Fragen als Semikolon-separierte Zeichenkette
-            user_id=current_user.id if current_user.is_authenticated else None  # Null für Gäste
+            questions=questions_json,  # Immer als JSON speichern
+            user_id=current_user.id
         )
         db.session.add(new_survey)
         db.session.commit()
 
         flash('Umfrage erfolgreich erstellt!', 'success')
-
-        return redirect(url_for('dashboard') if current_user.is_authenticated else url_for('home'))
+        return redirect(url_for('created', survey_id=new_survey.id))
 
     return render_template('create.html', user=current_user)
+
+@app.route('/created/<int:survey_id>')
+@login_required
+def created(survey_id):
+    survey = Survey.query.get_or_404(survey_id)
+    survey_link = f"{request.url_root}survey/{survey_id}"  # Erzeugt den vollständigen Link
+    return render_template('created.html', survey=survey, survey_link=survey_link)
+
+# Umfrage löschen
+@app.route('/delete_survey/<int:survey_id>', methods=['POST'])
+@login_required
+def delete_survey(survey_id):
+    survey = Survey.query.get_or_404(survey_id)
+
+    # Überprüfen, ob der aktuelle Nutzer der Ersteller ist
+    if survey.user_id != current_user.id:
+        flash("Du kannst nur deine eigenen Umfragen löschen!", "danger")
+        return redirect(url_for('dashboard'))
+
+    db.session.delete(survey)
+    db.session.commit()
+    flash("Umfrage erfolgreich gelöscht!", "success")
+
+    return redirect(url_for('dashboard'))
+
+@app.route('/results/<int:survey_id>')
+def results(survey_id):
+    survey = Survey.query.get_or_404(survey_id)
+
+    # Fehlerhandling für JSON-Dekodierung
+    try:
+        questions = json.loads(survey.questions) if survey.questions else []
+    except json.JSONDecodeError:
+        questions = []
+
+    return render_template('results.html', survey=survey, questions=questions)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
