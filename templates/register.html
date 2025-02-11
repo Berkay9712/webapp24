@@ -15,7 +15,6 @@
     <main class="container">
         <h2>Registrieren</h2>
 
-        <!-- Flash Messages für Erfolg oder Fehler -->
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 {% for category, message in messages %}
@@ -24,27 +23,21 @@
             {% endif %}
         {% endwith %}
 
-        {% if success %}
-            <!-- Erfolgreiche Registrierung -->
-            <p class="success-message">Dein Konto wurde erfolgreich erstellt!</p>
-            <a href="{{ url_for('index') }}" class="button">Zurück zur Startseite</a>
-        {% else %}
-            <!-- Registrierungsformular -->
-            <form method="POST" action="{{ url_for('register') }}">
-                <label for="username">Nutzername</label>
-                <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen" class="input-field">
+        <form method="POST" action="{{ url_for('register') }}">
+            <label for="username">Nutzername</label>
+            <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen" class="input-field">
 
-                <label for="password">Passwort</label>
-                <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein" class="input-field">
+            <label for="password">Passwort</label>
+            <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein" class="input-field">
 
-                <div class="button-container">
-                    <button type="submit" class="button">Registrieren</button>
-                </div>
-            </form>
-        {% endif %}
+            <div class="button-container">
+                <button type="submit" class="button">Registrieren</button>
+            </div>
+        </form>
     </main>
 
 </body>
 </html>
+
 
 
