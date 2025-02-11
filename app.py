@@ -6,7 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SECRET_KEY'] = 'mein_geheimer_schlüssel'  # Wähle einen sicheren Schlüssel
+app.config['SECRET_KEY'] = 'mein_geheimer_schlüssel'  # Sicherer Schlüssel
 
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -61,33 +61,17 @@ def register():
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Nutzername bereits vergeben!', 'danger')
-            return redirect(url_for('register'))
+            return render_template('register.html', success=False)
 
         hashed_password = generate_password_hash(password)
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Registrierung erfolgreich! Bitte logge dich ein.', 'success')
-        return redirect(url_for('login'))
+        flash('Dein Konto wurde erfolgreich erstellt!', 'success')
+        return render_template('register.html', success=True)
 
-    return render_template('register.html')
-
-# Login
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        user = User.query.filter_by(username=username).first()
-        if user and check_password_hash(user.password, password):
-            login_user(user)
-            return redirect(url_for('dashboard'))
-        else:
-            flash('Falsche Anmeldedaten!', 'danger')
-
-    return render_template('login.html')
+    return render_template('register.html', success=False)
 
 # Dashboard für eingeloggte Nutzer
 @app.route('/dashboard')
@@ -144,15 +128,16 @@ def survey(survey_id):
 
     return render_template('survey.html', survey=survey)
 
-#  Ergebnisse einer Umfrage anzeigen
+# Ergebnisse einer Umfrage anzeigen
 @app.route('/results/<int:survey_id>')
 def results(survey_id):
     survey = Survey.query.get_or_404(survey_id)
     return render_template('results.html', survey=survey)
 
-#  Flask-App starten
+# Flask-App starten
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000) # Zugrif auch von anderen Geräten erlauben
+    app.run(debug=True, host='0.0.0.0', port=5000)  # Zugriff auch von anderen Geräten erlauben
+
 
 
 

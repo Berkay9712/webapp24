@@ -116,5 +116,14 @@ body {
     font-size: 16px;
     box-sizing: border-box;
 }
+/* Erfolgreiche Anmeldung */ 
+.success-message {
+    background-color: #28a745;
+    color: white;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    margin-bottom: 15px;
+}
 
 
