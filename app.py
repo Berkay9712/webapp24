@@ -11,7 +11,7 @@ app.config['SECRET_KEY'] = 'mein_geheimer_schlüssel'  # Sicherer Schlüssel
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = "login"
+login_manager.login_view = "home"
 
 # Benutzer-Modell für Authentifizierung
 class User(db.Model, UserMixin):
@@ -36,16 +36,14 @@ class Response(db.Model):
     answer = db.Column(db.String, nullable=False)
     question = db.relationship('Question', backref=db.backref('responses', lazy=True))
 
-# Benutzerauthentifizierung laden
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
-# Datenbanktabellen erstellen (nur einmal notwendig)
 with app.app_context():
     db.create_all()
 
-# Startseite
+# Startseite mit Login und Flash-Nachrichten
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -57,27 +55,26 @@ def register():
         username = request.form['username']
         password = request.form['password']
 
-        # Prüfen, ob der Nutzername bereits existiert
         existing_user = User.query.filter_by(username=username).first()
         if existing_user:
             flash('Nutzername bereits vergeben!', 'danger')
-            return render_template('register.html', success=False)
+            return redirect(url_for('register'))
 
         hashed_password = generate_password_hash(password)
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
 
-        flash('Dein Konto wurde erfolgreich erstellt!', 'success')
-        return render_template('register.html', success=True)
+        flash('Registrierung erfolgreich! Du kannst dich jetzt anmelden.', 'success')
+        return redirect(url_for('home'))
 
-    return render_template('register.html', success=False)
+    return render_template('register.html')
 
 # Dashboard für eingeloggte Nutzer
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    surveys = Survey.query.all()  # Falls Benutzer nur eigene Umfragen sehen sollen: Survey.query.filter_by(user_id=current_user.id)
+    surveys = Survey.query.all()
     return render_template('dashboard.html', user=current_user, surveys=surveys)
 
 # Logout
@@ -88,9 +85,8 @@ def logout():
     flash('Erfolgreich ausgeloggt!', 'info')
     return redirect(url_for('home'))
 
-# Umfrage erstellen (nur eingeloggte Nutzer)
+# Umfrage erstellen
 @app.route('/create', methods=['GET', 'POST'])
-@login_required
 def create():
     if request.method == 'POST':
         title = request.form['title']
@@ -110,16 +106,14 @@ def create():
 
     return render_template('create.html')
 
-# Umfrage anzeigen & ausfüllen
+# Umfrage ausfüllen
 @app.route('/survey/<int:survey_id>', methods=['GET', 'POST'])
 def survey(survey_id):
     survey = Survey.query.get_or_404(survey_id)
 
     if request.method == 'POST':
         responses = request.form.getlist('responses[]')
-        questions = survey.questions
-
-        for i, question in enumerate(questions):
+        for i, question in enumerate(survey.questions):
             response = Response(question_id=question.id, answer=responses[i])
             db.session.add(response)
 
@@ -128,15 +122,15 @@ def survey(survey_id):
 
     return render_template('survey.html', survey=survey)
 
-# Ergebnisse einer Umfrage anzeigen
+# Ergebnisse anzeigen
 @app.route('/results/<int:survey_id>')
 def results(survey_id):
     survey = Survey.query.get_or_404(survey_id)
     return render_template('results.html', survey=survey)
 
-# Flask-App starten
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)  # Zugriff auch von anderen Geräten erlauben
+    app.run(debug=True, host='0.0.0.0', port=5000)
+
 
 
 
