@@ -18,7 +18,7 @@
         <p>Teile diesen Link, damit andere die Umfrage beantworten können:</p>
         <input type="text" value="{{ survey_link }}" id="surveyLink" readonly>
         <button onclick="copyLink()">Link kopieren</button>
-        <a href="{{ url_for('results', survey_id=survey_id) }}">Ergebnisse anzeigen</a>
+        <a href="{{ url_for('results', survey_id=survey.id) }}">Ergebnisse anzeigen</a>
     </div>
 
     <script>

@@ -148,6 +148,12 @@ def results(survey_id):
 
     return render_template('results.html', survey=survey, questions=questions)
 
+# Umfragelink aufrufen
+@app.route('/survey/<int:survey_id>')
+def survey(survey_id):
+    survey = Survey.query.get_or_404(survey_id)
+    return render_template('survey.html', survey=survey)
+
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
