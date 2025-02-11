@@ -26,16 +26,19 @@
 
         <form method="POST" action="{{ url_for('register') }}">
             <label for="username">Nutzername</label>
-            <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen">
+            <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen" class="input-field">
 
             <label for="password">Passwort</label>
-            <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein">
+            <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein" class="input-field">
 
-            <button type="submit" class="button">Registrieren</button>
+            <div class="button-container">
+                <button type="submit" class="button">Registrieren</button>
+            </div>
         </form>
 
-        <p>Bereits ein Konto? <a href="{{ url_for('login') }}">Hier einloggen</a></p>
+        <p>Bereits ein Konto? <a href="{{ url_for('login') }}" class="survey-link">Hier einloggen</a></p>
     </main>
 
 </body>
 </html>
+
