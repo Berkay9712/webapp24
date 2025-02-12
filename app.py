@@ -81,7 +81,7 @@ def register():
 @login_required
 def dashboard():
     surveys = Survey.query.filter_by(user_id=current_user.id).all()
-    return render_template('dashboard.html', surveys=surveys)
+    return render_template('dashboard.html', user=current_user, surveys=surveys)
 
 @app.route('/logout')
 @login_required
