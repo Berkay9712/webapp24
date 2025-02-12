@@ -136,7 +136,7 @@ def delete_survey(survey_id):
 
     return redirect(url_for('dashboard'))
 
-# Umfragelink aufrufen
+# Umfragelink aufrufen und beantworten
 @app.route('/survey/<int:survey_id>', methods=['GET', 'POST'])
 def show_survey(survey_id):
     survey = Survey.query.get_or_404(survey_id)  # Holt die Umfrage oder gibt 404 zurück
@@ -144,11 +144,24 @@ def show_survey(survey_id):
     # JSON in eine Python-Liste umwandeln
     try:
         questions = json.loads(survey.questions) if survey.questions else []
-    except json.JSONDecodeError as e:
+    except json.JSONDecodeError:
         flash("Fehler beim Laden der Fragen!", "danger")
         questions = []
 
+    if request.method == 'POST':
+        answers = request.form.getlist('answers[]')  # Holt die Antworten aus dem Formular
+        answers_json = json.dumps(answers)  # Speichert sie als JSON
+
+        # Antworten speichern
+        new_response = Response(survey_id=survey.id, answers=answers_json)
+        db.session.add(new_response)
+        db.session.commit()
+
+        # Nutzer zur Bestätigungsseite weiterleiten
+        return redirect(url_for('submitted', survey_id=survey.id, response_id=new_response.id))
+
     return render_template('survey.html', survey=survey, questions=questions)
+
 
 # Auswertung
 @app.route('/results/<int:survey_id>')
