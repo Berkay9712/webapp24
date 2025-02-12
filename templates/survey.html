@@ -17,9 +17,9 @@
     <main class="container">
         <h2>{{ survey.title }}</h2>
         <form method="POST" action="/survey/{{ survey.id }}">
-            {% for question in survey.questions %}
+            {% for question in questions %}
                 <div class="question-box">
-                    <p class="question-text">{{ question.text }}</p>
+                    <p class="question-text">{{ question }}</p>  <!-- Korrigiert: Frage ist jetzt ein einfacher String -->
                     <input type="text" name="answers[]" required placeholder="Antwort eingeben">
                 </div>
             {% endfor %}
@@ -32,4 +32,5 @@
 
 </body>
 </html>
+
 

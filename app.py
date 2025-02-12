@@ -97,7 +97,7 @@ def create():
         questions = request.form.getlist('questions[]')
 
         # Falls keine Fragen eingegeben wurden, leere Liste speichern
-        questions_json = json.dumps(questions) if questions else "[]"
+        questions_json = json.dumps(questions, ensure_ascii=False) if questions else "[]"
 
         new_survey = Survey(
             title=title,
@@ -136,24 +136,35 @@ def delete_survey(survey_id):
 
     return redirect(url_for('dashboard'))
 
-@app.route('/results/<int:survey_id>')
-def results(survey_id):
-    survey = Survey.query.get_or_404(survey_id)
+# Umfragelink aufrufen
+@app.route('/survey/<int:survey_id>', methods=['GET', 'POST'])
+def show_survey(survey_id):
+    survey = Survey.query.get_or_404(survey_id)  # Holt die Umfrage oder gibt 404 zurück
 
-    # Fehlerhandling für JSON-Dekodierung
+    # JSON in eine Python-Liste umwandeln
     try:
         questions = json.loads(survey.questions) if survey.questions else []
-    except json.JSONDecodeError:
+    except json.JSONDecodeError as e:
+        flash("Fehler beim Laden der Fragen!", "danger")
         questions = []
 
-    return render_template('results.html', survey=survey, questions=questions)
+    return render_template('survey.html', survey=survey, questions=questions)
 
-# Umfragelink aufrufen
-@app.route('/survey/<int:survey_id>')
-def survey(survey_id):
+# Auswertung
+@app.route('/results/<int:survey_id>')
+@login_required
+def results(survey_id):
     survey = Survey.query.get_or_404(survey_id)
-    return render_template('survey.html', survey=survey)
-
+    
+    # JSON in eine Python-Liste umwandeln
+    try:
+        questions = json.loads(survey.questions) if survey.questions else []
+    except json.JSONDecodeError as e:
+        flash("Fehler beim Laden der Fragen!", "danger")
+        questions = []
+    
+    return render_template('results.html', survey=survey, questions=questions)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+

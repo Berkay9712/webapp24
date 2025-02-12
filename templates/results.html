@@ -16,21 +16,21 @@
     <div class="container">
         <h1>Ergebnisse der Umfrage: {{ survey.title }}</h1>
         
-        {% for question in survey.questions %}
+        {% for question in questions %}
             <div class="question">
-                <h3>{{ question.text }}</h3>
+                <h3>{{ question }}</h3> <!-- Direkt den Frage-Text anzeigen -->
                 <ul>
-                    {% for response in question.responses %}
-                        <li>{{ response.answer }}</li>
-                    {% endfor %}
+                    <li>(Hier später Antworten einfügen)</li> 
                 </ul>
             </div>
         {% endfor %}
 
         <a href="{{ url_for('create') }}">Neue Umfrage erstellen</a>
     </div>
+
 </body>
 </html>
+
 
 
 
