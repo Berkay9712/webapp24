@@ -16,14 +16,17 @@
         <h2>Danke für deine Teilnahme!</h2>
         <p>Hier sind deine Antworten:</p>
 
-        <ul>
+        <ul class="results-list">
             {% for question, answer in combined %}
-                <p><strong>{{ question }}</strong>: {{ answer }}</p>
+                <li><strong>{{ question }}</strong>: {{ answer }}</li>
             {% endfor %}
         </ul>
 
-        <a href="{{ url_for('home') }}" class="button">Zurück zur Startseite</a>
+        <div class="button-container">
+            <a href="{{ url_for('home') }}" class="button">Zurück zur Startseite</a>
+        </div>
     </main>
 
 </body>
 </html>
+
