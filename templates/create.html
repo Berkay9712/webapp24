@@ -5,124 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Umfrage erstellen | Circumspectis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        /* Allgemeine Stile */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            text-align: center;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Header */
-        .header-bar {
-            background-color: #007bff;
-            color: white;
-            padding: 15px 0;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        /* Container */
-        .container {
-            width: 50%;
-            margin: 40px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        h2 {
-            color: #333;
-        }
-
-        /* Eingabefelder */
-        label {
-            display: block;
-            margin: 10px 0 5px;
-            font-weight: bold;
-        }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-            display: block;
-            margin: 0 auto 10px;
-        }
-
-        /* Buttons */
-        .button-container {
-            margin-top: 20px;
-        }
-
-        .button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: 0.3s;
-            margin: 5px;
-        }
-
-        .button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Fragen Container */
-        #questions-container {
-            text-align: center;
-        }
-
-        .question-box {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .remove-btn {
-            background-color: #dc3545;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            font-size: 14px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-top: 5px;
-        }
-
-        .remove-btn:hover {
-            background-color: #a71d2a;
-        }
-    </style>
 </head>
 <body>
 
-    <!-- Header -->
-    <header class="header-bar">
-        Circumspectis
-    </header>
+    <header class="header-bar">Circumspectis</header>
 
-    <!-- Umfrage -->
-    <main class="container">
+    <div class="container">
         <h2>Neue Umfrage erstellen</h2>
+
         <form method="POST" action="/create">
             <label for="title">Titel der Umfrage</label>
-            <input type="text" name="title" id="title" required placeholder="Titel eingeben">
+            <input type="text" name="title" id="title" required class="input-field">
 
             <h3>Fragen</h3>
             <div id="questions-container">
                 <div class="question-box">
-                    <input type="text" name="questions[]" required placeholder="Frage eingeben">
+                    <input type="text" name="questions[]" required class="input-field">
                     <button type="button" class="remove-btn" onclick="removeQuestion(this)">Frage löschen</button>
                 </div>
             </div>
@@ -132,25 +30,8 @@
                 <button type="submit" class="button">Umfrage erstellen</button>
             </div>
         </form>
-    </main>
-
-    <!-- Javascript Fragen hinzufügen -->
-    <script>
-        function addQuestion() {
-            const container = document.getElementById('questions-container');
-            const questionDiv = document.createElement('div');
-            questionDiv.classList.add('question-box');
-            questionDiv.innerHTML = `
-                <input type="text" name="questions[]" required placeholder="Weitere Frage eingeben">
-                <button type="button" class="remove-btn" onclick="removeQuestion(this)">Frage löschen</button>
-            `;
-            container.appendChild(questionDiv);
-        }
-
-        function removeQuestion(button) {
-            button.parentElement.remove();
-        }
-    </script>
+    </div>
 
 </body>
 </html>
+
