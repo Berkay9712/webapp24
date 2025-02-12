@@ -32,6 +32,37 @@
         </form>
     </div>
 
+    <script>
+        function addQuestion() {
+            let container = document.getElementById("questions-container");
+
+            let newQuestionDiv = document.createElement("div");
+            newQuestionDiv.classList.add("question-box");
+
+            let newInput = document.createElement("input");
+            newInput.type = "text";
+            newInput.name = "questions[]";
+            newInput.required = true;
+            newInput.classList.add("input-field");
+
+            let removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.classList.add("remove-btn");
+            removeButton.textContent = "Frage löschen";
+            removeButton.onclick = function () {
+                removeQuestion(removeButton);
+            };
+
+            newQuestionDiv.appendChild(newInput);
+            newQuestionDiv.appendChild(removeButton);
+            container.appendChild(newQuestionDiv);
+        }
+
+        function removeQuestion(button) {
+            button.parentElement.remove();
+        }
+    </script>
+
 </body>
 </html>
 

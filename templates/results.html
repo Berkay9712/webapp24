@@ -29,6 +29,7 @@
 
         <div class="button-container">
             <a href="{{ url_for('create') }}" class="button">Neue Umfrage erstellen</a>
+            <a href="{{ url_for('download_csv', survey_id=survey.id) }}" class="button">Ergebnisse als CSV herunterladen</a>
         </div>
     </div>
 

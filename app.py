@@ -1,8 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, send_file
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import json
+import csv
+import io
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys.db'
@@ -143,11 +145,9 @@ def submitted(survey_id, response_id):
     questions = json.loads(survey.questions) if survey.questions else []
     answers = json.loads(response.answers) if response.answers else []
 
-    # Kombiniere Fragen und Antworten
     combined = list(zip(questions, answers))
 
     return render_template('submitted.html', survey_id=survey_id, combined=combined)
-
 
 @app.route('/results/<int:survey_id>')
 @login_required
@@ -155,14 +155,30 @@ def results(survey_id):
     survey = Survey.query.get_or_404(survey_id)
     responses = Response.query.filter_by(survey_id=survey.id).all()
     
-    questions = parse_json(survey.questions)  # Fragen aus JSON extrahieren
+    questions = parse_json(survey.questions)
     all_answers = [parse_json(response.answers) for response in responses]
-
-    # Debugging-Ausgabe
-    print(f"Fragen: {questions}")
-    print(f"Antworten: {all_answers}")
 
     return render_template('results.html', survey=survey, questions=questions, all_answers=all_answers)
 
+@app.route('/download_csv/<int:survey_id>')
+@login_required
+def download_csv(survey_id):
+    survey = Survey.query.get_or_404(survey_id)
+    questions = parse_json(survey.questions)
+    responses = Response.query.filter_by(survey_id=survey.id).all()
+    all_answers = [parse_json(response.answers) for response in responses]
+
+    output = io.StringIO()
+    writer = csv.writer(output, delimiter=";")
+    
+    writer.writerow(["Frage"] + ["Antwort " + str(i+1) for i in range(len(all_answers))])
+    for i, question in enumerate(questions):
+        writer.writerow([question] + [response[i] for response in all_answers])
+
+    output.seek(0)
+    
+    return send_file(io.BytesIO(output.getvalue().encode()), mimetype="text/csv", as_attachment=True, download_name=f"Umfrage_{survey.title}.csv")
+
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
+
