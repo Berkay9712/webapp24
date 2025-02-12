@@ -15,21 +15,26 @@
     <main class="container">
         <h2>Hallo, {{ user.username }}!</h2>
         <h3>Deine Umfragen</h3>
+
         {% if surveys %}
-            <ul>
+            <ul class="survey-list">
                 {% for survey in surveys %}
                     <li>
-                        <a href="{{ url_for('results', survey_id=survey.id) }}">{{ survey.title }}</a>
-                        <span> | <a href="{{ url_for('delete_survey', survey_id=survey.id) }}" style="color: red;">Löschen</a></span>
+                        <a href="{{ url_for('results', survey_id=survey.id) }}" class="survey-link">{{ survey.title }}</a>
+                        <span> | <a href="{{ url_for('delete_survey', survey_id=survey.id) }}" class="survey-link" style="color: red;">Löschen</a></span>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
             <p>Du hast noch keine Umfragen erstellt.</p>
         {% endif %}
-        <a href="{{ url_for('create') }}"><button class="button">Neue Umfrage erstellen</button></a>
-        <a href="{{ url_for('logout') }}"><button class="button logout-btn">Logout</button></a>
+
+        <div class="button-container">
+            <a href="{{ url_for('create') }}"><button class="button">Neue Umfrage erstellen</button></a>
+            <a href="{{ url_for('logout') }}"><button class="button logout-btn">Logout</button></a>
+        </div>
     </main>
 
 </body>
 </html>
+
