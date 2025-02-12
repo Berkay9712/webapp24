@@ -156,3 +156,25 @@ label {
 .remove-btn:hover {
     background-color: #a71d2a;
 }
+/* Einheitliche Listengestaltung für Ergebnisse und Dashboard */
+.results-list, .survey-list {
+    list-style: none;
+    padding: 0;
+}
+
+.results-list li, .survey-list li {
+    background: #fff;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Logout-Button in Rot */
+.logout-btn {
+    background-color: #dc3545;
+}
+
+.logout-btn:hover {
+    background-color: #a71d2a;
+}
