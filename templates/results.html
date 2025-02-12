@@ -3,23 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umfrageergebnisse</title>
+    <title>Umfrageergebnisse | Circumspectis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
     <!-- Header -->
     <header class="header-bar">
-        <h1 class="site-title">Circumspectis</h1>
+        Circumspectis
     </header>
     
     <div class="container">
         <h1>Ergebnisse der Umfrage: {{ survey.title }}</h1>
         
         {% for i in range(questions|length) %}
-            <div class="question">
-                <h3>{{ questions[i] }}</h3> <!-- Zeigt die Frage an -->
-                <ul>
+            <div class="question-box">
+                <h3 class="question-text">{{ questions[i] }}</h3> <!-- Zeigt die Frage an -->
+                <ul class="results-list">
                     {% for response in all_answers %}
                         <li>{{ response[i] }}</li>  <!-- Zeigt die entsprechende Antwort an -->
                     {% endfor %}
@@ -27,7 +27,9 @@
             </div>
         {% endfor %}
 
-        <a href="{{ url_for('create') }}">Neue Umfrage erstellen</a>
+        <div class="button-container">
+            <a href="{{ url_for('create') }}" class="button">Neue Umfrage erstellen</a>
+        </div>
     </div>
 
 </body>
