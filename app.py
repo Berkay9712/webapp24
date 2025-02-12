@@ -154,8 +154,15 @@ def submitted(survey_id, response_id):
 def results(survey_id):
     survey = Survey.query.get_or_404(survey_id)
     responses = Response.query.filter_by(survey_id=survey.id).all()
+    
+    questions = parse_json(survey.questions)  # Fragen aus JSON extrahieren
     all_answers = [parse_json(response.answers) for response in responses]
-    return render_template('results.html', survey=survey, all_answers=all_answers)
+
+    # Debugging-Ausgabe
+    print(f"Fragen: {questions}")
+    print(f"Antworten: {all_answers}")
+
+    return render_template('results.html', survey=survey, questions=questions, all_answers=all_answers)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

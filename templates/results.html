@@ -16,11 +16,13 @@
     <div class="container">
         <h1>Ergebnisse der Umfrage: {{ survey.title }}</h1>
         
-        {% for question in questions %}
+        {% for i in range(questions|length) %}
             <div class="question">
-                <h3>{{ question }}</h3> <!-- Direkt den Frage-Text anzeigen -->
+                <h3>{{ questions[i] }}</h3> <!-- Zeigt die Frage an -->
                 <ul>
-                    <li>(Hier später Antworten einfügen)</li> 
+                    {% for response in all_answers %}
+                        <li>{{ response[i] }}</li>  <!-- Zeigt die entsprechende Antwort an -->
+                    {% endfor %}
                 </ul>
             </div>
         {% endfor %}
@@ -30,8 +32,3 @@
 
 </body>
 </html>
-
-
-
-
-
