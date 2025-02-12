@@ -16,10 +16,11 @@
     <!-- Umfrage -->
     <main class="container">
         <h2>{{ survey.title }}</h2>
-        <form method="POST" action="/survey/{{ survey.id }}">
+
+        <form method="POST" action="{{ url_for('show_survey', survey_id=survey.id) }}">
             {% for question in questions %}
                 <div class="question-box">
-                    <p class="question-text">{{ question }}</p>  <!-- Korrigiert: Frage ist jetzt ein einfacher String -->
+                    <p class="question-text">{{ question }}</p>
                     <input type="text" name="answers[]" required placeholder="Antwort eingeben">
                 </div>
             {% endfor %}
@@ -29,6 +30,11 @@
             </div>
         </form>
     </main>
+
+</body>
+</html>
+
+
 
 </body>
 </html>
