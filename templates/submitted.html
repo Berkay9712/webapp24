@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Umfrage abgeschlossen</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="header-bar">
+        <h1 class="site-title">Circumspectis</h1>
+    </header>
+
+    <main class="container">
+        <h2>Danke für deine Teilnahme!</h2>
+        <p>Hier sind deine Antworten:</p>
+
+        <ul>
+            {% for question, answer in questions|zip(answers) %}
+                <li><strong>{{ question }}</strong>: {{ answer }}</li>
+            {% endfor %}
+        </ul>
+
+        <a href="{{ url_for('home') }}" class="button">Zurück zur Startseite</a>
+    </main>
+
+</body>
+</html>
