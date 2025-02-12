@@ -3,32 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Umfrage erstellt</title>
+    <title>Umfrage erstellt | Circumspectis</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
+
     <!-- Header -->
     <header class="header-bar">
-        <h1 class="site-title">Circumspectis</h1>
+        Circumspectis
     </header>
 
     <div class="container">
         <h1>Umfrage erfolgreich erstellt!</h1>
         <p>Teile diesen Link, damit andere die Umfrage beantworten können:</p>
-        <input type="text" value="{{ survey_link }}" id="surveyLink" readonly>
-        <button onclick="copyLink()">Link kopieren</button>
-        <a href="{{ url_for('results', survey_id=survey.id) }}">Ergebnisse anzeigen</a>
+        
+        <input type="text" value="{{ survey_link }}" id="surveyLink" class="input-field" readonly>
+        
+        <div class="button-container">
+            <button onclick="copyLink()" class="button">Link kopieren</button>
+            <a href="{{ url_for('results', survey_id=survey.id) }}" class="button">Ergebnisse anzeigen</a>
+        </div>
     </div>
 
     <script>
         function copyLink() {
             var copyText = document.getElementById("surveyLink");
-            copyText.select();
-            copyText.setSelectionRange(0, 99999);
-            document.execCommand("copy");
-            alert("Link kopiert: " + copyText.value);
+            navigator.clipboard.writeText(copyText.value).then(() => {
+                alert("Link kopiert: " + copyText.value);
+            }).catch(err => {
+                console.error('Fehler beim Kopieren: ', err);
+            });
         }
     </script>
+
 </body>
 </html>
+
