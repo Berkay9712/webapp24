@@ -17,8 +17,8 @@
         <p>Hier sind deine Antworten:</p>
 
         <ul>
-            {% for question, answer in questions|zip(answers) %}
-                <li><strong>{{ question }}</strong>: {{ answer }}</li>
+            {% for question, answer in combined %}
+                <p><strong>{{ question }}</strong>: {{ answer }}</p>
             {% endfor %}
         </ul>
 
