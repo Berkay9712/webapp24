@@ -8,36 +8,27 @@
 </head>
 <body>
 
-    <header class="header-bar">
-        <h1 class="site-title">Circumspectis</h1>
-    </header>
+    <header class="header-bar">Circumspectis</header>
 
-    <main class="container">
+    <div class="container">
         <h2>Registrieren</h2>
-
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash flash-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            {% endif %}
-        {% endwith %}
 
         <form method="POST" action="{{ url_for('register') }}">
             <label for="username">Nutzername</label>
-            <input type="text" name="username" id="username" required placeholder="Wähle einen Nutzernamen" class="input-field">
+            <input type="text" name="username" id="username" required class="input-field">
 
             <label for="password">Passwort</label>
-            <input type="password" name="password" id="password" required placeholder="Gib ein sicheres Passwort ein" class="input-field">
+            <input type="password" name="password" id="password" required class="input-field">
 
             <div class="button-container">
                 <button type="submit" class="button">Registrieren</button>
             </div>
         </form>
-    </main>
+    </div>
 
 </body>
 </html>
+
 
 
 
