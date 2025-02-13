@@ -9,7 +9,7 @@ import io
 from models import db, User, Survey, Question, Response  # db von models importieren
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///surveys5.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///circumsdata.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SECRET_KEY'] = 'mein_geheimer_schlüssel'
 
