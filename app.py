@@ -165,5 +165,8 @@ def download_csv(survey_id):
     output.seek(0)
     return send_file(io.BytesIO(output.getvalue().encode()), mimetype="text/csv", as_attachment=True, download_name=f"Umfrage_{survey.title}.csv")
 
+with app.app_context():        # DB erstellen
+    db.create_all()
+
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0', port=5000)
