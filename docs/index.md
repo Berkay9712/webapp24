@@ -14,6 +14,7 @@ Im Rahmen der Lehrveranstaltung soll eine Online Umfrage Plattform aufgebaut wer
 
 About
 : Ich strebe den Bachelor der Wirtschaftsinformatik an der Hochschule für Wirtschaft und Recht in Berlin Schöneberg an und befinde mich derzeit im 8. Fachsemester.
+
 Matr.-Nr.
 : 77211864960
 
