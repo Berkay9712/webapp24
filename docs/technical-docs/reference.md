@@ -28,6 +28,7 @@ nav_order: 3
 **Output:**
 - Erfolgreiche Anmeldung - "Erfolgreich eingeloggt!" und Weiterleitung zum Dashboard
 - Fehlgeschlagene Anmeldung - "Falscher Nutzername oder Passwort!"
+---
 
 
 ### `register()`
@@ -41,6 +42,7 @@ nav_order: 3
 **Output:**
 - Erfolgreiche Registrierung - "Registrierung erfolgreich!"
 - Benutzername existiert bereits - "Nutzername bereits vergeben!"
+---
 
 
 ### `logout()`
@@ -69,6 +71,7 @@ nav_order: 3
 
 **Output:**
 - Liste eigener Umfragen mit Links zur Verwaltung
+---
 
 
 ### `create()`
@@ -82,6 +85,7 @@ nav_order: 3
 **Output:**
 - Erfolgreiche Umfrage-Erstellung - "Umfrage erfolgreich erstellt!" mit generiertem Link
 - Fehler - "Titel und mindestens eine Frage erforderlich!"
+---
 
 
 ### `created()`
@@ -94,6 +98,7 @@ nav_order: 3
 
 **Output:**
 - Umfragelink: http://127.0.0.1:5000/survey/123
+---
 
 
 ### `delete_survey(survey_id)`
@@ -106,6 +111,7 @@ nav_order: 3
 
 **Output:**
 - Erfolgreiche Löschung - "Umfrage erfolgreich gelöscht!"
+---
 
 
 ### `show_survey(survey_id)`
@@ -118,6 +124,7 @@ nav_order: 3
 
 **Output:**
 - Erfolgreiche Teilnahme - Weiterleitung zur Bestätigungsseite mit "Antwort gespeichert!"
+---
 
 
 ### `submitted(survey_id, response_id)`
@@ -133,7 +140,7 @@ nav_order: 3
 
 ---
 
-## Dashboard & Surveys
+## Survey Results & Data Export
 
 
 ### `results(survey_id)`
@@ -146,6 +153,7 @@ nav_order: 3
 
 **Output:**
 - Tabelle mit allen Antworten zu einer Umfrage
+---
 
 
 ### `download_csv(survey_id)`
