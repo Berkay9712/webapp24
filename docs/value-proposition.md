@@ -30,7 +30,9 @@ Wir haben uns dazu entschieden eine Umfrageplattform zu schaffen, bei der keine 
 
 ## Target user
 
+![get_list_todos_sample](assets/images/Student_Persona.png)
 
+![get_list_todos_sample](assets/images/Teamleiter_Persona.png)
 
 ## Customer journey
 
