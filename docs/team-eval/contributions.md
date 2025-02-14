@@ -5,7 +5,10 @@ nav_order: 4
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 {: .no_toc }
 # Summary of individual contributions
@@ -17,16 +20,25 @@ nav_order: 4
 {: toc }
 </details>
 
-## [Jane Dane]
+## [Nurdan Turan]
 
 Contributions
-: Lorem ipsum dolor
-: Consetetur sadipscing elitr
-: ...
+: CSS Anpassungen
+: Überprüfung von Funktionen
+: Datenbankoptimierung
+: Registrierungsfunktion
+: Loginfunktionen
+: Survey einsehen - submitted
+: Testen
+: Dokumentation
 
-## [Joe Doe]
+## [Berkay Olmaz]
 
 Contributions
-: Diam nonumy eirmod
-: Tempor invidunt ut labore
-: ...
+: App-Aufbau
+: Funktionen der routes
+: Seiten erstellen / Aufbau
+: Surveys erstellen
+: Python Codes
+: Testen
+: Dokumentation
