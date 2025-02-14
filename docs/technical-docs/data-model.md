@@ -35,7 +35,7 @@ Das User-Modell speichert Informationen über registrierte Nutzer und ihre Umfra
     title = db.Column(db.String(100), nullable=False) 
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=True)  
     questions = db.relationship('Question', backref='survey', cascade="all, delete-orphan", lazy=True)
-    responses = db.relationship('Response', backref='survey', cascade="all, delete-orphan", lazy=True)'
+    responses = db.relationship('Response', backref='survey', cascade="all, delete-orphan", lazy=True)'`
 
 Das Survey-Modell speichert eine Umfrage mit einem Titel und einer (optional) Verknüpfung zu einem Nutzer.
 
