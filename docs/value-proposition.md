@@ -27,7 +27,9 @@ Umfrageplattformen möchten meist viele Informationen sammeln. Die Nutzer müsse
 ## Our solution
 
 Wir haben uns dazu entschieden eine Umfrageplattform zu schaffen, bei der keine Anmeldung nötig ist um eine schnelle einfache Umfrage zu erstellen. Die Anmeldung ist optional und dient nur der Übersicht für den Nutzer. Außerdem hat dieser die Möglichkeit, die gesammelten Informationen als CSV Datei zu exportieren.
+
 --- 
+
 ## Target user
 
 Um uns nicht an einer ganz bestimmten Zielgruppe festzulegen, haben wir uns entschieden zwei Personas zu erstellen.
@@ -62,7 +64,7 @@ Die Customer journey beginnt mit der Startseite. Hier hat der Nutzer die Auswahl
 
 Hat der Nutzer sich eingeloggt, kann dieser seine Umfragen sehen und diese Auswertung anzeigen lassen (survey), eine neue Umfrage erstellen oder sich ausloggen.
 
-![get_list_todos_sample](assets/images/dashboard_journey.png)
+![get_list_todos_sample](assets/images/Dashboard_journey.png)
 
 ### Create
 
