@@ -13,15 +13,14 @@ Im Rahmen der Lehrveranstaltung soll eine Online Umfrage Plattform aufgebaut wer
 ### [Nurdan Turan]
 
 About
-: Some info about Jane
-
+: Ich strebe den Bachelor der Wirtschaftsinformatik an der Hochschule für Wirtschaft und Recht in Berlin Schöneberg an und befinde mich derzeit im 8. Fachsemester.
 Matr.-Nr.
-: 1234567
+: 77211864960
 
 ### [Berkay Olmaz]
 
 About
-: Ich befinde mich im 7. Semester des Studiengangs "Wirtschaftsinformatik".
+: Ich strebe ebenfalls den Bachelor der Wirtschaftsinformatik an der Hochschule für Wirtschaft und Recht in Berlin Schöneberg an und befinde mich derzeit im 7. Fachsemester.
 
 Matr.-Nr.
 : 77211880326
