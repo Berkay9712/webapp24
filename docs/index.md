@@ -6,7 +6,7 @@ nav_order: 0
 
 # Circumspectis
 
-Eine Umfrageplattform
+Im Rahmen der Lehrveranstaltung soll eine Online Umfrage Plattform aufgebaut werden, die durch einen Benutzer erstellt und durch einen Link weitergeleitet werden kann. Die Umfragen können dann als CSV-Datei ausgewertet werden.
 
 ## Team members
 
@@ -21,7 +21,7 @@ Matr.-Nr.
 ### [Berkay Olmaz]
 
 About
-: 
+: Ich befinde mich im 7. Semester des Studiengangs "Wirtschaftsinformatik".
 
 Matr.-Nr.
 : 77211880326
