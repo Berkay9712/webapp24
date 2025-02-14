@@ -5,7 +5,10 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 {: .no_toc }
 # Peer review
@@ -17,16 +20,16 @@ nav_order: 3
 {: toc }
 </details>
 
-## [team member] - review 1
+## [Nurdan Turan] 
 
 ### My observation (Wahrnehmung)
 
-[A specific observation, regarding know-how, effectiveness, team work or from another relevant area]
+Nurdan scheint Vorerfahrung mit CSS zu besitzen und konnte vieles für die Umsetzung in Erfahrung bringen. Sie konnte mit Fleiß dafür sorgen, dass Fehler behoben wurden und war immer kommunikativ.
 
 ### Effect on me (Wirkung)
 
-[What positive or negative effect did this observation have on the reviewer?]
+Die Zeiteinteilung war schwer, dennoch haben wir es geschaft, gemeinsame Projektstunden zu finden.
 
 ### Tip for the future (Wunsch)
 
-[What should be changed or strengthened for the point of view of the reviewer?]
+Fleißig bleiben :D
