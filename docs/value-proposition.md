@@ -27,10 +27,10 @@ Umfrageplattformen möchten meist viele Informationen sammeln. Die Nutzer müsse
 ## Our solution
 
 Wir haben uns dazu entschieden eine Umfrageplattform zu schaffen, bei der keine Anmeldung nötig ist um eine schnelle einfache Umfrage zu erstellen. Die Anmeldung ist optional und dient nur der Übersicht für den Nutzer. Außerdem hat dieser die Möglichkeit, die gesammelten Informationen als CSV Datei zu exportieren.
-
+--- 
 ## Target user
 
-Um sich nicht an einer ganz bestimmten Zielgruppe festzulegen, haben wir uns entschieden zwei Personas zu erstellen.
+Um uns nicht an einer ganz bestimmten Zielgruppe festzulegen, haben wir uns entschieden zwei Personas zu erstellen.
 
 ### Persona 1: Student S
 
@@ -49,7 +49,55 @@ Christian A. ist 35 Jahre alt und arbeitet als Teamleiter in einem mittelgroßem
 
 Die Plattform kommt ihm entgegen, da sie einfache Umfrageerstellung bietet und Ergebnisse übersichtlich auswertet. Besonders schätzt er die Möglichkeit, die Ergebnisse als CSV-Datei herunterzuladen, um sie in Meetings oder Analysen zu verwenden. Er bevorzugt direkte Kommunikation per Telefon, E-Mail, Teams oder Meetings.
 
-
+---
 ## Customer journey
 
-[Illustrate the customer journey, from the app's entry point to a completed task. You might want to show the customer journey as (schematic) screen flows.]
+### Startseite
+
+Die Customer journey beginnt mit der Startseite. Hier hat der Nutzer die Auswahl sich zu registrieren bzw. einzuloggen oder eine Umfrage ohne Login zu erstellen.
+
+![get_list_todos_sample](assets/images/home_journey.png)
+
+### Dashboard
+
+Hat der Nutzer sich eingeloggt, kann dieser seine Umfragen sehen und diese Auswertung anzeigen lassen (survey), eine neue Umfrage erstellen oder sich ausloggen.
+
+![get_list_todos_sample](assets/images/dashboard_journey.png)
+
+### Create
+
+Möchte der Nutzer eine Umfrage erstellen, so muss er einen Titel für die Umfrage angeben und kann dann Fragen hinzufügen oder löschen.
+
+![get_list_todos_sample](assets/images/create_journey.png)
+
+### Created
+
+Wurde die Umfrage erstellt, erhält der Nutzer umgehend einen Link, welchen er per klick auf "Link kopieren" kopieren und somit weiterleiten kann. Weiterhin kann er auf die Seite der Ergebnisse wechseln.
+
+![get_list_todos_sample](assets/images/created_journey.png)
+
+### Survey
+
+Der Link zu der Umfrage führt zu der survey.html und kann dann durch einen Nutzer beantwortet und abgesendet werden.
+
+![get_list_todos_sample](assets/images/survey_journey.png)
+
+### Submitted
+
+Wurde die Umfrage ausgefüllt und abgesendet, wird dem Absender seine Antworten angezeigt. Dieser kann dann durch einen weiteren Klick auf die Startseite wechseln.
+
+![get_list_todos_sample](assets/images/submitted_journey.png)
+
+### Results 
+
+Die Antworten kann der Ersteller auf der results.html einsehen. Durch aktualisieren der Seite, können alle Ergebnisse neu geladen werden. Der Nutzer kann aber auch eine neue Umfrage erstellen oder die Ergebnisse als CSV Datei exportieren.
+
+![get_list_todos_sample](assets/images/results_journey.png)
+
+### CSV-Datei
+
+Die CSV-Datei wird automatisch heruntergeladen und setzt pro Teilnehmer eine ID. Die Fragen werden in der ersten Zeile gesammelt und die Antworten in den jeweiligen Spalten.
+
+![get_list_todos_sample](assets/images/CSV_journey.png)
+
+
