@@ -4,7 +4,9 @@ nav_order: 4
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+
 
 {: .no_toc }
 # User evaluation
@@ -16,30 +18,36 @@ nav_order: 4
 {: toc }
 </details>
 
-## 01: [Title]
+## 01: Benutzung von Circumspectis
 
 ### Meta
 
 Status
-: **Work in progress** - Done - Obsolete
+: Work in progress - **Done** - Obsolete
 
 Updated
-: DD-MMM-YYYY
+: 14-02-2025
 
 ### Goal
 
-[Describe the goal of this evaluation, for example as a research question like: "How long does it take to register a new account and what is the drop-out rate?"]
+Das Ziel dieser Evaluation ist es zu bewerten, wie einfach Nutzer Umfragen erstellen und ausfüllen können.
+
+- Wie lange dauert es für einen neuen Nutzer, sich zu registrieren und eine Umfrage zu erstellen?
+- Welche Hindernisse treten beim Beantworten einer Umfrage auf?
+- Wie viele Nutzer schließen den gesamten Umfrageprozess erfolgreich ab?
 
 ### Method
 
-[Describe how you proceed to achieve your evaluation goal. Be as specific as possible: others should be able to replicate your evaluation by following the description on this section.]
+- Nutzer sollen ein Konto erstellen und sich anmelden.
+- die benötigte Zeit soll gemessen werden und auftretende Probleme erfasst
+
 
 ### Results
 
-[Present the main results of your evaluation, for example: "On average, users need 3 min to register. The drop-out rate was 70%. Users that didn't complete provided the following reasons: ..."]
+Die Erstellung einer Umfrage, inkl. Registrierung, mit einer Anzahl von 3 Fragen dauert ca. eine Minute. Je nach länge der Frage kann die Dauer der Evaluation abweichen. Sowohl die Linkerstellung, als auch die Auswertung sind optimal.
 
 ### Implications
 
-[What did you learn from this evaluation and what will you change to improve? Example: "We aim to decrease the drop-out rate by not asking for a birth date. We will re-run this evaluation to measure the impact."]
+Die Nutzung unserer Anwendung ist sehr zeitarm und simpel.
 
 ---
