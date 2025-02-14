@@ -5,6 +5,11 @@ nav_order: 2
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 # Technical documentation
+
+Hier finden Sie die technischen Aspekte des Projektes gegliedert und erklärt.
