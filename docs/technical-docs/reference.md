@@ -5,81 +5,164 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 {: .no_toc }
 # Reference documentation
 
-{: .attention }
-> This page collects internal functions, routes with their functions, and APIs (if any).
-> 
-> See [Uber](https://developer.uber.com/docs/drivers/references/api) or [PayPal](https://developer.paypal.com/api/rest/) for exemplary high-quality API reference documentation.
->
-> You may delete this `attention` box.
 
-<details open markdown="block">
-{: .text-delta }
-<summary>Table of contents</summary>
-+ ToC
-{: toc }
-</details>
+## Authorisierung
 
-## [Section / module]
 
-### `function_definition()`
+### `home()`
 
-**Route:** `/route/`
+**Route:** `/`
 
-**Methods:** `POST` `GET` `PATCH` `PUT` `DELETE`
+**Methods:** `POST` `GET`
 
-**Purpose:** [Short explanation of what the function does and why]
+**Purpose:** Zeigt die Startseite an und verarbeitet die Anmeldung eines Nutzers. Wenn die Anmeldedaten korrekt sind, wird der Nutzer zum Dashboard weitergeleitet. Andernfalls wird eine Fehlermeldung angezeigt.
 
-**Sample output:**
+**Output:**
+- Erfolgreiche Anmeldung - "Erfolgreich eingeloggt!" und Weiterleitung zum Dashboard
+- Fehlgeschlagene Anmeldung - "Falscher Nutzername oder Passwort!"
 
-[Show an image, string output, or similar illustration -- or write NONE if function generates no output]
 
----
+### `register()`
 
-## [Example, delete this section] Show to-do lists
+**Route:** `/register/`
 
-### `get_lists()`
+**Methods:** `POST` `GET`
 
-**Route:** `/lists/`
+**Purpose:** Registriert einen neuen Nutzer. Falls der Benutzername bereits existiert, wird eine Fehlermeldung angezeigt. Bei erfolgreicher Registrierung wird der Nutzer automatisch eingeloggt.
+
+**Output:**
+- Erfolgreiche Registrierung - "Registrierung erfolgreich!"
+- Benutzername existiert bereits - "Nutzername bereits vergeben!"
+
+
+### `logout()`
+
+**Route:** `/logout/`
 
 **Methods:** `GET`
 
-**Purpose:** Show all to-do lists.
+**Purpose:** Meldet den Nutzer ab und leitet ihn zur Startseite weiter.
 
-**Sample output:**
-
-![get_lists() sample](../assets/images/fswd-intro_00.png)
-
----
-
-### `get_list_todos(list_id)`
-
-**Route:** `/lists/<int:list_id>`
-
-**Methods:** `GET`
-
-**Purpose:** Retrieve all to-do items of to-do list with ID `list_id` from database and present to user.
-
-**Sample output:**
-
-![get_list_todos() sample](../assets/images/fswd-intro_02.png)
+**Output:**
+- Erfolgreiches Logout - "Erfolgreich ausgeloggt!"
 
 ---
 
-## [Example, delete this section] Insert sample data
+## Dashboard & Surveys
 
-### `run_insert_sample()`
 
-**Route:** `/insert/sample`
+### `dashboard()`
+
+**Route:** `/dashboard/`
 
 **Methods:** `GET`
 
-**Purpose:** Flush the database and insert sample data set
+**Purpose:** Zeigt das Dashboard des Nutzers mit einer Übersicht aller erstellten Umfragen.
 
-**Sample output:**
+**Output:**
+- Liste eigener Umfragen mit Links zur Verwaltung
 
-Browser shows: `Database flushed and populated with some sample data.`
+
+### `create()`
+
+**Route:** `/create/`
+
+**Methods:** `GET`, `POST`
+
+**Purpose:** Die Erstellung einer neuen Umfrage mit einem Titel und mindestens einer Frage. Falls kein Nutzer angemeldet ist, wird die Umfrage anonym gespeichert.
+
+**Output:**
+- Erfolgreiche Umfrage-Erstellung - "Umfrage erfolgreich erstellt!" mit generiertem Link
+- Fehler - "Titel und mindestens eine Frage erforderlich!"
+
+
+### `created()`
+
+**Route:** `/created/`
+
+**Methods:** `GET`
+
+**Purpose:** Zeigt eine Bestätigungsseite nach der Umfrageerstellung und gibt den Umfragelink aus.
+
+**Output:**
+- Umfragelink: http://127.0.0.1:5000/survey/123
+
+
+### `delete_survey(survey_id)`
+
+**Route:** `/delete_survey/<int:survey_id>/`
+
+**Methods:** `POST`, `DELETE`
+
+**Purpose:** Löscht eine Umfrage, falls der aktuelle Nutzer der Ersteller ist. Andernfalls wird eine Fehlermeldung ausgegeben.
+
+**Output:**
+- Erfolgreiche Löschung - "Umfrage erfolgreich gelöscht!"
+
+
+### `show_survey(survey_id)`
+
+**Route:** `/survey/<int:survey_id>/`
+
+**Methods:** `POST`, `GET`
+
+**Purpose:** Zeigt die Umfrage mit ihren Fragen an und ermöglicht es Teilnehmern, Antworten einzureichen. Die Antworten werden als JSON gespeichert.
+
+**Output:**
+- Erfolgreiche Teilnahme - Weiterleitung zur Bestätigungsseite mit "Antwort gespeichert!"
+
+
+### `submitted(survey_id, response_id)`
+
+**Route:** `/submitted/<int:survey_id>/<int:response_id>/`
+
+**Methods:** `GET`
+
+**Purpose:** Zeigt die Bestätigungsseite nach der Teilnahme an einer Umfrage mit den eingereichten Antworten.
+
+**Output:**
+- Liste der Fragen und Antworten des Nutzers
+
+---
+
+## Dashboard & Surveys
+
+
+### `results(survey_id)`
+
+**Route:** `/results/<int:survey_id>/`
+
+**Methods:** `GET`
+
+**Purpose:** Zeigt die gesammelten Antworten einer Umfrage an, aufgeteilt nach Fragen.
+
+**Output:**
+- Tabelle mit allen Antworten zu einer Umfrage
+
+
+### `download_csv(survey_id)`
+
+**Route:** `/download_csv/<int:survey_id>/`
+
+**Methods:** `GET`
+
+**Purpose:** Download der Umfrageergebnisse als CSV-Datei.
+
+**Output:**
+ID;  Frage 1;  Frage 2;  Frage 3
+1;  Antwort 1;  Antwort 2;  Antwort 3
+2;  Antwort A;  Antwort B;  Antwort C
+
+
+
+
+  
+
