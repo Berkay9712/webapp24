@@ -5,6 +5,9 @@ nav_order: 5
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 # Team evaluation
