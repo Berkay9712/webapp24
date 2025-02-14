@@ -6,7 +6,7 @@ nav_order: 0
 
 # Circumspectis
 
-Im Rahmen der Lehrveranstaltung soll eine Online Umfrage Plattform aufgebaut werden, die durch einen Benutzer erstellt und durch einen Link weitergeleitet werden kann. Die Umfragen können dann als CSV-Datei ausgewertet werden.
+Im Rahmen der Lehrveranstaltung "Wi-Inf-M09-F02 Full-Stack Web Development" von Prof. Dr. Alexander Eck, soll eine Online Umfrage Plattform aufgebaut werden, die durch einen Benutzer erstellt und durch einen Link weitergeleitet werden kann. Die Umfragen können dann als CSV-Datei ausgewertet werden.
 
 ## Team members
 
