@@ -4,7 +4,10 @@ nav_order: 3
 ---
 
 {: .label }
-[Jane Dane]
+[Nurdan Turan]
+
+{: .label }
+[Berkay Olmaz]
 
 {: .no_toc }
 # Design decisions
@@ -16,31 +19,7 @@ nav_order: 3
 {: toc }
 </details>
 
-## 01: [Title]
-
-### Meta
-
-Status
-: **Work in progress** - Decided - Obsolete
-
-Updated
-: DD-MMM-YYYY
-
-### Problem statement
-
-[Describe the problem to be solved or the goal to be achieved. Include relevant context information.]
-
-### Decision
-
-[Describe **which** design decision was taken for **what reason** and by **whom**.]
-
-### Regarded options
-
-[Describe any possible design decision that will solve the problem. Assess these options, e.g., via a simple pro/con list.]
-
----
-
-## [Example, delete this section] 01: How to access the database - SQL or SQLAlchemy 
+## 01: routes & app.py trennen
 
 ### Meta
 
@@ -48,46 +27,114 @@ Status
 : Work in progress - **Decided** - Obsolete
 
 Updated
-: 30-Jun-2024
+: 14-02-2025
 
 ### Problem statement
 
-Should we perform database CRUD (create, read, update, delete) operations by writing plain SQL or by using SQLAlchemy as object-relational mapper?
-
-Our web application is written in Python with Flask and connects to an SQLite database. To complete the current project, this setup is sufficient.
-
-We intend to scale up the application later on, since we see substantial business value in it.
-
-
-
-Therefore, we will likely:
-Therefore, we will likely:
-Therefore, we will likely:
-
-+ Change the database schema multiple times along the way, and
-+ Switch to a more capable database system at some point.
+Das Problem alle Routen in einer py zu speichern und von der app.py zu trennen.
 
 ### Decision
 
-We stick with plain SQL.
-
-Our team still has to come to grips with various technologies new to us, like Python and CSS. Adding another element to our stack will slow us down at the moment.
-
-Also, it is likely we will completely re-write the app after MVP validation. This will create the opportunity to revise tech choices in roughly 4-6 months from now.
-*Decision was taken by:* github.com/joe, github.com/jane, github.com/maxi
+Da die Aufwendigkeit mit blueprints zu arbeiten zu hoch war und die App eine, noch, übersichtliche Anzahl an Routen hatte, wurde die Entscheidung getroffen, diese nicht zu trennen.
 
 ### Regarded options
 
-We regarded two alternative options:
+Da die routes mit einem Präfix versehen werden müssen, wenn diese in einer gesonderten py gespeichert werden, war es nahe die routen einheitlich in die app.py zu setzen.
 
-+ Plain SQL
-+ SQLAlchemy
+---
+## 02: einfache Loginverwaltung
 
-| Criterion | Plain SQL | SQLAlchemy |
-| --- | --- | --- |
-| **Know-how** | ✔️ We know how to write SQL | ❌ We must learn ORM concept & SQLAlchemy |
-| **Change DB schema** | ❌ SQL scattered across code | ❔ Good: classes, bad: need Alembic on top |
-| **Switch DB engine** | ❌ Different SQL dialect | ✔️ Abstracts away DB engine |
+### Meta
+
+Status
+: Work in progress - **Decided** - Obsolete
+
+Updated
+: 12-02-2025
+
+### Problem statement
+
+Nutzer, die auf ihre Umfragen zugreifen wollen, benötigen die Möglichkeit einer Anmeldung.
+
+### Decision
+
+Flask-Login nutzen, da die Anwendung bereits auf Flask basiert.
+
+### Regarded options
+
+Sie bietet eine einfache Integration und automatisiert im selben Zug die Nutzung.
+
+---
+## 03: Aufbau der Datenbank
+
+### Meta
+
+Status
+: Work in progress - **Decided** - Obsolete
+
+Updated
+: 14-02-2025
+
+### Problem statement
+
+Umfragen sollten mit mehreren Fragen gespeichert werden können und für die Ersteller zugänglich sein.
+
+### Decision
+
+SQL Alchemy mit relationaler Datenbank.
+
+### Regarded options
+
+Durch die Nutzung von SQL Alchemy konnten wir den Aufbau und die Strukturierung innerhalb des Codes gut planen.
+
+---
+## 04: erweiterte UI
+
+### Meta
+
+Status
+: Work in progress - Decided - **Obsolete**
+
+Updated
+: 14-02-2025
+
+### Problem statement
+
+Ersteller der Umfragen sollten die Möglichkeit haben, ihre Fragen mit Hinweisen beschriften zu können (Beispiel: kleines i an einem Rand der Frage, für Informationsgebung)
+
+### Decision
+
+Da wir die simple Gestaltung und zeitsparende value propostion einhalten möchten, haben die Nutzer die Möglichkeit nähere Infos zu den Fragen bereits in der Frage mitzugeben. 
+
+### Regarded options
+
++schöneres Design
+-Nutzung fragwürdig, da Vorteil der App das Zeit sparen ist
+
+---
+## 05: Umsetzung Umfrage ohne Anmeldung
+
+### Meta
+
+Status
+: Work in progress - **Decided** - Obsolete
+
+Updated
+: 12-02-2025
+
+### Problem statement
+
+Umfragen, die ohne Login erstellt werden, müssen in der gleichen Datenbank gespeichert werden.
+
+### Decision
+
+Das Feld für die ID in der Datenbank kann leer bleiben.
+
+### Regarded options
+
++keine separate Benutzerverwaltung nötig
++Zuordnung bleibt erhalten
++es wird kein Platzhalter verwendet
 
 ---
 ## UI Komponenten der Webanwendung
