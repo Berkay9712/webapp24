@@ -3,18 +3,14 @@ title: Home
 nav_order: 0
 ---
 
-{: .attention }
-> Any text enclosed by `[ ]` are placeholders, including the opening and closing brackets.
->
-> You may delete this `attention` box.
 
-# [Project Name]
+# Circumspectis
 
-[Project description]
+Eine Umfrageplattform
 
 ## Team members
 
-### [Jane Dane]
+### [Nurdan Turan]
 
 About
 : Some info about Jane
@@ -22,13 +18,13 @@ About
 Matr.-Nr.
 : 1234567
 
-### [Joe Doe]
+### [Berkay Olmaz]
 
 About
-: Some info about Joe
+: 
 
 Matr.-Nr.
-: 1234567
+: 77211880326
 
 ## Eidesstattliche Erklärung
 
